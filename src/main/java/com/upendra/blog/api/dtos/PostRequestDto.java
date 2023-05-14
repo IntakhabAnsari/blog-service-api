@@ -21,10 +21,6 @@ public class PostRequestDto {
 
 	private Date addedDate;
 
-	private CategoryDto category;
-
-	private UserDto user;
-
 	private Set<CommentDto> comments = new HashSet<>();
 
 }

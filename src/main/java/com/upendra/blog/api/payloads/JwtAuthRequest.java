@@ -8,6 +8,7 @@ import lombok.Setter;
 public class JwtAuthRequest {
 
 	private String userName;
+
 	private String password;
 
 }

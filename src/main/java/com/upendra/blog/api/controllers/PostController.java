@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.upendra.blog.api.dtos.PostDto;
+import com.upendra.blog.api.dtos.PostRequestDto;
 import com.upendra.blog.api.services.FileService;
 import com.upendra.blog.api.services.PostService;
 
@@ -47,9 +48,9 @@ public class PostController {
 	}
 
 	@PostMapping("/user/{userId}/category/{categoryId}")
-	public ResponseEntity<Void> savePost(@RequestBody PostDto postDto, @PathVariable Integer userId,
+	public ResponseEntity<Void> savePost(@RequestBody PostRequestDto postRequestDto, @PathVariable Integer userId,
 			@PathVariable Integer categoryId) {
-		postService.savePost(postDto, userId, categoryId);
+		postService.savePost(postRequestDto, userId, categoryId);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
@@ -95,7 +96,7 @@ public class PostController {
 
 	}
 
-	@GetMapping(value = "/post/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+	@GetMapping(value = "/image/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public void downloadImage(@PathVariable("imageName") String imageName, HttpServletResponse response)
 			throws IOException {
 		InputStream resource = this.fileService.getResource(path, imageName);

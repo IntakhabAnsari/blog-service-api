@@ -3,7 +3,6 @@ package com.upendra.blog.api.services;
 import java.util.List;
 
 import com.upendra.blog.api.dtos.UserDto;
-import com.upendra.blog.api.entities.User;
 
 public interface UserService {
 
@@ -16,5 +15,7 @@ public interface UserService {
 	void updateUser(Integer id, UserDto userDto);
 
 	void deleteUser(Integer id);
+
+	UserDto registerNewUser(UserDto userDto);
 
 }

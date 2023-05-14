@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.upendra.blog.api.dtos.PostDto;
+import com.upendra.blog.api.dtos.PostRequestDto;
 
 public interface PostService {
 
@@ -12,7 +13,7 @@ public interface PostService {
 
 	PostDto getPostById(Integer id);
 
-	void savePost(PostDto postDto, Integer userId, Integer categoryId);
+	void savePost(PostRequestDto postRequestDto, Integer userId, Integer categoryId);
 
 	PostDto updatePost(PostDto postDto, Integer postId);
 

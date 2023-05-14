@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.upendra.blog.api.dtos.PostDto;
+import com.upendra.blog.api.dtos.PostRequestDto;
 import com.upendra.blog.api.entities.Category;
 import com.upendra.blog.api.entities.Post;
 import com.upendra.blog.api.entities.User;
@@ -33,12 +34,12 @@ public class PostServiceImpl implements PostService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public void savePost(PostDto postDto, Integer userId, Integer categoryId) {
+	public void savePost(PostRequestDto postRequestDto, Integer userId, Integer categoryId) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		Category category = categoryRepository.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId));
-		Post post = modelMapper.map(postDto, Post.class);
+		Post post = modelMapper.map(postRequestDto, Post.class);
 		post.setUser(user);
 		post.setCategory(category);
 		postRepository.save(post);

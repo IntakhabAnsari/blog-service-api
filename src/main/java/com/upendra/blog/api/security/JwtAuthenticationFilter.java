@@ -2,6 +2,7 @@ package com.upendra.blog.api.security;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -76,7 +77,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
 			if (this.jwtTokenHelper.validateToken(token, userDetails)) {
-				// authentication karna hai
 
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());

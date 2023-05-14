@@ -23,28 +23,29 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void createCategory(CategoryDto categoryDto) {
-		Category category = dtoToCategory(categoryDto);
+		Category category = modelMapper.map(categoryDto, Category.class);
 		categoryRepository.save(category);
 	}
 
 	@Override
 	public List<CategoryDto> getCategories() {
 		List<Category> categories = categoryRepository.findAll();
-		return categories.stream().map(user -> categoryToDto(user)).collect(Collectors.toList());
+		return categories.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
 	}
 
 	@Override
 	public CategoryDto getCategoryById(Integer id) {
 		Category category = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-		return categoryToDto(category);
+		return modelMapper.map(category, CategoryDto.class);
 	}
 
 	@Override
 	public void updateCategory(Integer id, CategoryDto categoryDto) {
 		Category updateCategory = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-		dtoToCategory(categoryDto);
+		updateCategory.setCategoryTitle(categoryDto.getCategoryTitle());
+		updateCategory.setCategoryDescription(categoryDto.getCategoryDescription());
 		categoryRepository.save(updateCategory);
 	}
 
@@ -53,22 +54,6 @@ public class CategoryServiceImpl implements CategoryService {
 		Category deleteCategory = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		categoryRepository.delete(deleteCategory);
-	}
-
-	private Category dtoToCategory(CategoryDto categoryDto) {
-		if (categoryDto.equals(null)) {
-			return null;
-		}
-		Category category = modelMapper.map(categoryDto, Category.class);
-		return category;
-	}
-
-	private CategoryDto categoryToDto(Category category) {
-		if (category.equals(null)) {
-			return null;
-		}
-		CategoryDto categoryDto = modelMapper.map(category, CategoryDto.class);
-		return categoryDto;
 	}
 
 }
