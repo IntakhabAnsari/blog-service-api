@@ -1,4 +1,4 @@
-package com.upendra.blog.api.dtos;
+package com.upendra.blog.api.payloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
