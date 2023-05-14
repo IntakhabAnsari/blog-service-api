@@ -35,6 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public CategoryDto getCategoryById(Integer id) {
+		
+		//throw new ServiceException("Employee not found for given id " + id + "", HttpStatus.NOT_FOUND)
 		Category category = categoryRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		return modelMapper.map(category, CategoryDto.class);
