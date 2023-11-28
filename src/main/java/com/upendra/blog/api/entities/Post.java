@@ -39,6 +39,8 @@ public class Post {
 	private String imageName;
 
 	private Date addedDate;
+	
+	private long numberOfLikes;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -51,4 +53,6 @@ public class Post {
 	@OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
 	private Set<Comment> comments=new HashSet<>();
 
+	
+	
 }

@@ -32,7 +32,7 @@ public class CategoryController {
 	@PostMapping
 	public ResponseEntity<Void> saveCategory(@RequestBody CategoryDto categoryDto) {
 		categoryService.createCategory(categoryDto);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+	 	return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	@GetMapping("/{id}")

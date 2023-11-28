@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.upendra.blog.api.dtos.CommentDto;
 import com.upendra.blog.api.services.CommentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/comments")
+@Slf4j
 public class CommentController {
 
 	@Autowired
@@ -22,6 +25,7 @@ public class CommentController {
 
 	@PostMapping("/post/{postId}")
 	public ResponseEntity<Void> createComment(@RequestBody CommentDto commentDto, @PathVariable Integer postId) {
+		log.info("Create Comment API",commentDto);
 		commentService.createComment(commentDto, postId);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

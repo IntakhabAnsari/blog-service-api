@@ -18,6 +18,8 @@ public class PostDto {
 	private String content;
 
 	private String imageName;
+	
+	private long numberOfLikes;
 
 	private Date addedDate;
 
@@ -26,5 +28,6 @@ public class PostDto {
 	private UserDto user;
 
 	private Set<CommentDto> comments = new HashSet<>();
+	
 
 }

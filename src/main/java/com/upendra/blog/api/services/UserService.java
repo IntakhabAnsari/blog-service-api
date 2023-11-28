@@ -10,8 +10,6 @@ public interface UserService {
 
 	UserDto getUserById(Integer id);
 
-	void createUser(UserDto userDto);
-
 	void updateUser(Integer id, UserDto userDto);
 
 	void deleteUser(Integer id);

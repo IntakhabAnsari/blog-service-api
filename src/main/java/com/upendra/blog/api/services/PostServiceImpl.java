@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private PostRepository postRepository;
-
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -48,7 +48,8 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<PostDto> getPosts(Pageable pageable) {
 		List<Post> posts = postRepository.findAll();
-		return posts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return posts.stream().map(post -> modelMapper.map(post, PostDto.class))
+				.collect(Collectors.toList());
 	}
 
 	@Override

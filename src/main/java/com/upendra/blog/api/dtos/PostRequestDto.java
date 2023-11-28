@@ -21,6 +21,5 @@ public class PostRequestDto {
 
 	private Date addedDate;
 
-	private Set<CommentDto> comments = new HashSet<>();
 
 }

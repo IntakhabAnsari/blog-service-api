@@ -85,7 +85,7 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
-	@PostMapping("/image/upload/{postId}")
+		
 	public ResponseEntity<Void> uploadPostImage(@RequestParam("image") MultipartFile image,
 			@PathVariable Integer postId) throws IOException {
 		PostDto postDto = postService.getPostById(postId);

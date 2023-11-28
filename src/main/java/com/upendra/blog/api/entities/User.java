@@ -48,13 +48,15 @@ public class User implements UserDetails {
 	private String about;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id", referencedColumnName = "roleId"))
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user",
+	referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id",
+	referencedColumnName = "roleId"))
 	private Set<Role> roles = new HashSet<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles.stream()
-				.map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+		return this.roles.stream().map((role) -> new SimpleGrantedAuthority(role.getName()))
+				.collect(Collectors.toList());
 	}
 
 	@Override

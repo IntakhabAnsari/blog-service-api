@@ -1,6 +1,7 @@
 package com.upendra.blog.api.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -29,12 +30,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Override
-	public void createUser(UserDto userDto) {
-		User saveUser = dtoToUser(userDto);
-		userRepository.save(saveUser);
-	}
 
 	@Override
 	public List<UserDto> getUsers() {
@@ -82,18 +77,23 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto registerNewUser(UserDto userDto) {
 
-		User user = modelMapper.map(userDto, User.class);
+		User user = new User();// modelMapper.map(userDto, User.class);
+		user.setName(userDto.getName());
+		user.setEmail(userDto.getEmail());
+		user.setAbout(userDto.getAbout());
+		user.setPassword(userDto.getPassword());// encoded the password
+		String encodePassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodePassword);
 
-		// encoded the password
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-		// roles
-		Role role = roleRepository.findByName("ROLE_USER").get();
-
-		user.getRoles().add(role);
-
+		// roless
+		Optional<Role> role = roleRepository.findByName("ROLE_USER");
+		if (role.isEmpty()) {
+			role = Optional.ofNullable(new Role());
+			role.get().setName("ROLE_USER");
+			roleRepository.save(role.get());
+		}
+		user.getRoles().add(role.get());
 		User newUser = userRepository.save(user);
-
 		return this.modelMapper.map(newUser, UserDto.class);
 	}
 
